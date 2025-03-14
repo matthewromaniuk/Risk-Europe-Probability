@@ -9,6 +9,7 @@ public class Main {
         double archer;
         double cavalry;
         double footmen;
+        double simulationCount;
         boolean valid = false;
         String in;
 
@@ -22,6 +23,8 @@ public class Main {
             System.out.println("Enter the number of Footmen in the attacking army: ");
             footmen = sc.nextDouble();
             Army attackingArmy = new Army(seige, archer, cavalry, footmen, false, false);
+
+
             System.out.println("Enter the number of Seige Machines in the defending army: ");
             seige = sc.nextDouble();
             System.out.println("Enter the number of Archers in the defending army: ");
@@ -30,20 +33,26 @@ public class Main {
             cavalry = sc.nextDouble();
             System.out.println("Enter the number of Footmen in the defending army: ");
             footmen = sc.nextDouble();
+            Army defendingArmy = new Army(0, 0, 0, 0, false, false);
+
             while(!valid){
                 System.out.println("Is the defending army defending a castle? (y/n)");
                 in = sc.next();
                 if(in.equals("y")){
                     valid = true;
-                    Army defendingArmy = new Army(seige, archer, cavalry, footmen, true, true);
+                    defendingArmy = new Army(seige, archer, cavalry, footmen, true, true);
                 } else if(in.equals("n")){
                     valid = true;
-                    Army defendingArmy = new Army(seige, archer, cavalry, footmen, true, false);
+                    defendingArmy = new Army(seige, archer, cavalry, footmen, true, false);
                 } else {
                     System.out.println("Invalid input. Please enter 'y' or 'n'.");
                 }
             }
-            Probability battle = new Probability(attackingArmy, defendingArmy);
+
+            System.out.println("Enter the number of simulations ran (the higher, the more accuracy): ");
+            simulationCount = sc.nextDouble();
+
+            Probability battle = new Probability(attackingArmy, defendingArmy, simulationCount);
             System.out.println("The probability of the attacking army winning is: " + battle.getWinProb());
             
             while(!valid){
@@ -60,5 +69,7 @@ public class Main {
             }
 
         }
+        sc.close();
+        System.out.println("Exiting program...");
     }
 }

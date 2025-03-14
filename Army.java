@@ -1,15 +1,16 @@
 public class Army{    
-    public static double numSiege = 0;
-    public static double numArcher = 0;
-    public static double numCavalry = 0;
-    public static double numFootmen = 0;
-    public static double totalTroops =  0;
-    public static double seigeProb;
-    public static double archerProb;
-    public static double cavalryProb;
-    public static double genProb;
-    public static boolean defense;
-    public static boolean castleDefense;
+    public double numSiege = 0;
+    public double numArcher = 0;
+    public double numCavalry = 0;
+    public double numFootmen = 0;
+    public double totalTroops =  0;
+    public double currentSiege = 0;
+    public double currentArcher = 0;
+    public double currentCavalry = 0;
+    public double currentFootmen = 0;
+    public double currentTotal = 0;
+    public boolean defense;
+    public boolean castleDefense;
 
 
     public Army(double siege, double archer, double cavalry, double footmen, boolean defending, boolean castle){
@@ -20,5 +21,13 @@ public class Army{
         totalTroops = siege + archer + cavalry + footmen;
         defense = defending;
         castleDefense = castle;
+    }
+
+    public void setCurrent(){
+        currentSiege = numSiege;
+        currentArcher = numArcher;
+        currentCavalry = numCavalry;
+        currentFootmen = numFootmen;
+        currentTotal = totalTroops;
     }
 }
