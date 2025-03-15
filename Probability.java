@@ -1,13 +1,13 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class Probability {
-    private final double siegeProb = 2/3; //66.6% chance of siege hitting (4-6)
-    private final double archerProb = 1/3; //33.3% chance of archer hitting (5 or 6)
-    private final double cavalryProb = 2/3; //66.6% chance of cavalry hitting (3-6)
     private final Army[] army = new Army[2];
     private final Random dice = new Random();
     private double simulationCount = 0;
-    private double[] hits = new double[2];
+    private final double[] hits = new double[2];
     private double aWinCount = 0;
     private double dWinCount = 0;
     private double drawCount = 0;
@@ -17,9 +17,11 @@ public class Probability {
         army[0] = a;
         army[1] = d;
         simulationCount = sim;
+        simFinished = false;
         hits[0] = 0;
         hits[1] = 0;
-        calculateProb();
+        army[0].setCurrent();
+        army[1].setCurrent();
     }
 
     public void calculateProb(){
@@ -80,16 +82,47 @@ public class Probability {
     }
 
     public void generalAttack(){
-        int[][] diceRolls = new int[2][3];
+        boolean full = false;
+        ArrayList<List<Integer>> diceRolls = new ArrayList<>();
         for(int i = 0; i < 2; i++){
-            for(int j = 0; j < 3; j++){
-                if()
-                diceRolls[i][j] = dice.nextInt(6) + 1;
+            diceRolls.add(new ArrayList<>());
+            for(int j = 0; j < 3 && j < army[i].currentTotal; j++){
+                if(j == 2 && i == 1){
+                    break;
+                }else{
+                    if(i == 0 && j == 2){
+                        full = true;
+                    }
+                    diceRolls.get(i).add(dice.nextInt(6) + 1);
+                }
             }
         }
 
-        for(int i = 0; i < army)
-    }//use stack?
+        Collections.sort(diceRolls.get(0), Collections.reverseOrder());
+        Collections.sort(diceRolls.get(1), Collections.reverseOrder());
+
+        if(full){
+            diceRolls.get(0).remove(2); //removes the lowest dice roll from attacker, if they have all three rolls
+        }
+
+        for(int i = 0; i < army[0].currentTotal && i < army[1].currentTotal && i < 2; i++){
+            if(diceRolls.get(0).get(i) > diceRolls.get(1).get(i)){
+                if(army[1].castleDefense){
+                    if(diceRolls.get(0).get(i) > (dice.nextInt(6) + 1)){
+                        hits[0]++;
+                    }else{
+                        hits[1]++;
+                    }
+                }else{
+                    hits[0]++;
+                }
+            }else{
+                hits[1]++;
+            }
+        }
+
+        removeTroops();
+    }
 
     public void removeTroops(){
         for (int i = 0; i < 2; i++){
@@ -135,4 +168,10 @@ public class Probability {
         hits[1] = 0;
         simFinished = false;
     }//resets fields for next simulation
+
+    public void printResult(){
+        System.out.printf("Attacker wins: " + (aWinCount/simulationCount));
+        System.out.println("Defender wins: " + dWinCount/simulationCount);
+        System.out.println("Draws: " + drawCount/simulationCount);
+    }
 }

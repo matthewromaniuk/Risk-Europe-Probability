@@ -53,7 +53,8 @@ public class Main {
             simulationCount = sc.nextDouble();
 
             Probability battle = new Probability(attackingArmy, defendingArmy, simulationCount);
-            System.out.println("The probability of the attacking army winning is: " + battle.getWinProb());
+            battle.calculateProb();
+            battle.printResult();
             
             while(!valid){
                 System.out.println("Would you like to calculate another battle? (y/n)");
