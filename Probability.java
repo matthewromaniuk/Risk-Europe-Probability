@@ -126,7 +126,7 @@ public class Probability {
 
     public void removeTroops(){
         for (int i = 0; i < 2; i++){
-            while(hits[i] > 0 && !simFinished){
+            while(hits[i] > 0){
                 if(army[(i + 1) % 2].currentFootmen > 0){
                     army[(i + 1) % 2].currentFootmen--;
                     army[(i + 1) % 2].currentTotal--;
@@ -152,10 +152,10 @@ public class Probability {
         if(army[0].currentTotal <= 0 && army[1].currentTotal <= 0){
             drawCount++;
             simFinished = true;
-        } else if(army[0].currentTotal == 0){
+        } else if(army[0].currentTotal <= 0){
             dWinCount++;
             simFinished = true;
-        } else if(army[1].currentTotal == 0){
+        } else if(army[1].currentTotal <= 0){
             aWinCount++;
             simFinished = true;
         }
@@ -170,8 +170,9 @@ public class Probability {
     }//resets fields for next simulation
 
     public void printResult(){
-        System.out.printf("Attacker wins: " + (aWinCount/simulationCount));
-        System.out.println("Defender wins: " + dWinCount/simulationCount);
-        System.out.println("Draws: " + drawCount/simulationCount);
+        System.out.println(aWinCount + " " + dWinCount + " " + drawCount);
+        System.out.printf("Attacker wins %.2f%% of the time\n", (aWinCount/simulationCount * 100));
+        System.out.printf("Defender wins %.2f%% of the time\n", (dWinCount/simulationCount * 100));
+        System.out.printf("Draws occurs %.2f%% of the time\n\n", (drawCount/simulationCount * 100));
     }
 }

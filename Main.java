@@ -55,6 +55,8 @@ public class Main {
             Probability battle = new Probability(attackingArmy, defendingArmy, simulationCount);
             battle.calculateProb();
             battle.printResult();
+
+            valid = false;
             
             while(!valid){
                 System.out.println("Would you like to calculate another battle? (y/n)");
@@ -68,7 +70,8 @@ public class Main {
                     System.out.println("Invalid input. Please enter 'y' or 'n'.");
                 }
             }
-
+            
+            valid = false;
         }
         sc.close();
         System.out.println("Exiting program...");
