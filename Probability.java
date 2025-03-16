@@ -170,9 +170,8 @@ public class Probability {
     }//resets fields for next simulation
 
     public void printResult(){
-        System.out.println(aWinCount + " " + dWinCount + " " + drawCount);
-        System.out.printf("Attacker wins %.2f%% of the time\n", (aWinCount/simulationCount * 100));
-        System.out.printf("Defender wins %.2f%% of the time\n", (dWinCount/simulationCount * 100));
-        System.out.printf("Draws occurs %.2f%% of the time\n\n", (drawCount/simulationCount * 100));
+        System.out.printf("Attacker wins %.2f%% of the time (%.0f times)\n", (aWinCount/simulationCount * 100), aWinCount);
+        System.out.printf("Defender wins %.2f%% of the time (%.0f times)\n", (dWinCount/simulationCount * 100), dWinCount);
+        System.out.printf("Draws occurs %.2f%% of the time (%.0f times)\n\n", (drawCount/simulationCount * 100), drawCount);
     }
 }
