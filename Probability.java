@@ -43,8 +43,6 @@ public class Probability {
             if (simFinished) break;
             generalAttack();
         }
-
-
         reset();
     }
 
@@ -62,7 +60,7 @@ public class Probability {
     public void archerAttack(){
         for (int i = 0; i < 2; i++) {
             for(int j = 0; j < army[i].currentArcher; j++){
-                if(dice.nextInt(6) > 4){
+                if((dice.nextInt(6) + 1) > 4){
                     hits[i]++;
                 }
             }
