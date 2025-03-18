@@ -134,6 +134,7 @@ public class Probability {
                 }else if(army[(i + 1) % 2].currentCavalry > 0){
                     army[(i + 1) % 2].currentCavalry--;
                     army[(i + 1) % 2].currentTotal--;
+                    hits[i]--;
                 }else{
                     army[(i + 1) % 2].currentSiege--;
                     army[(i + 1) % 2].currentTotal--;
