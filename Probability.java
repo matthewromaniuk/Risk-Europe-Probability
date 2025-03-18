@@ -28,8 +28,6 @@ public class Probability {
         for(int i = 0; i < simulationCount; i++){
             simulate();
         }
-
-        
     }
 
 
